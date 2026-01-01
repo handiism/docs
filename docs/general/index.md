@@ -5,3 +5,5 @@ Welcome to the general technical documentation section. This area contains docum
 ## Sections
 
 - [Guidelines](./guidelines.md)
+- [API Guidelines](./api-guidelines.md)
+- [Backend Guidelines](./backend-guidelines.md)
