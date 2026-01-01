@@ -1,0 +1,7 @@
+label: 'Incidents'
+position: 99
+link:
+  type: generated-index
+  title: 'Incident Reports'
+  description: 'A list of all incident reports for the To Do List project. Each incident includes details about the issue, timeline, root cause analysis, and fixes implemented.'
+  slug: '/projects/to-do-list/incidents'

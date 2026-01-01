@@ -31,7 +31,7 @@ All files and folders **must** use `kebab-case`:
 
 ✅ **Correct:**
 
-- `project-a-superapp`
+- `to-do-list`
 - `00-planning`
 - `backend-authentication-service`
 - `incident-2024-01-15.md`

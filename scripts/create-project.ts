@@ -229,7 +229,7 @@ link:
         console.log(`   ✓ Created ${folderName}/_category_.yml`);
 
         // Copy incident template
-        const templateSource = path.join(__dirname, '..', 'docs', 'projects', 'project-a-superapp', '99-incidents', 'template-incident.md');
+        const templateSource = path.join(__dirname, '..', 'docs', 'projects', 'to-do-list', '99-incidents', 'template-incident.md');
         const templateDest = path.join(folderPath, 'template-incident.md');
         
         if (await fs.pathExists(templateSource)) {

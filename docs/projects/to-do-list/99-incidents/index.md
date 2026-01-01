@@ -1,6 +1,6 @@
 # Incidents
 
-This section contains all incident reports and post-mortems for Project A - SuperApp.
+This section contains all incident reports and post-mortems for the **To Do List** project.
 
 ## About Incidents
 

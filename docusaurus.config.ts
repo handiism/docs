@@ -84,8 +84,8 @@ const config: Config = {
           position: 'left',
           items: [
             {
-              label: 'Project A - SuperApp',
-              to: '/docs/projects/project-a-superapp',
+              label: 'To Do List',
+              to: '/docs/projects/to-do-list',
             },
             // Add more projects here as they are created
           ],

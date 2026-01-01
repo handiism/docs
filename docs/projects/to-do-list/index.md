@@ -1,16 +1,16 @@
-# Project A - SuperApp
+# To Do List
 
-Welcome to the **Project A - SuperApp** documentation.
+Welcome to the **To Do List** documentation.
 
-This project is a comprehensive super application that includes multiple components across different platforms and services.
+This project is a simple yet powerful task management application built with Next.js and Go.
 
 ## Project Structure
 
 | Section                                    | Description                                                |
 | ------------------------------------------ | ---------------------------------------------------------- |
 | [Planning](./00-planning/index.md)         | Product Requirements, Technical Requirements, and Research |
-| [Mobile App](./10-mobile-app/index.md)     | Mobile application documentation                           |
-| [Backend Core](./20-backend-core/index.md) | Core backend services and APIs                             |
+| [Frontend Web](./10-frontend-web/index.md) | Next.js frontend documentation                             |
+| [Backend Go](./20-backend-go/index.md)     | Go backend services and APIs                               |
 | [Incidents](./99-incidents/index.md)       | Post-mortem reports and incident tracking                  |
 
 ## Overview

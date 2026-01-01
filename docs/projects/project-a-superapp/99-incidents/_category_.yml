@@ -1,7 +1,0 @@
-label: 'Incidents'
-position: 99
-link:
-  type: generated-index
-  title: 'Incident Reports'
-  description: 'A list of all incident reports for Project A - SuperApp. Each incident includes details about the issue, timeline, root cause analysis, and fixes implemented.'
-  slug: '/projects/project-a-superapp/incidents'
