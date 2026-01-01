@@ -1,3 +1,15 @@
 welcome:
   label: Welcome
   description: Official welcome posts
+
+guide:
+  label: Guide
+  description: Step-by-step guides and tutorials
+
+docusaurus:
+  label: Docusaurus
+  description: Posts related to Docusaurus configuration and usage
+
+scaffolding:
+  label: Scaffolding
+  description: Posts about project scaffolding and automation tools

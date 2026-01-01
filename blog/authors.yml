@@ -1,5 +1,11 @@
 handiism:
   name: handiism
-  title: Techave Team
+  title: Backend Developer
   url: https://github.com/handiism
   image_url: https://github.com/handiism.png
+
+techave-team:
+  name: Techave Dev
+  title: Owner
+  url: https://github.com/techave-dev
+  image_url: https://github.com/techave-dev.png
