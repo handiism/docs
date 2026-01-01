@@ -97,6 +97,7 @@ Examples:
    docs/projects/my-new-project/
    ├── index.md
    ├── 00-planning/
+   │   ├── change-requests/
    ├── 10-web-frontend/
    ├── 20-backend-core/
    └── 99-incidents/
