@@ -32,6 +32,13 @@ This document outlines the general technical guidelines and architectural standa
 - **Secret Management:** Never commit secrets to version control. Use a secret manager (K8s Secrets, Vault, etc.).
 - **Dependency Scanning:** Regularly scan for vulnerable packages in the build pipeline.
 
+## 6. Language-Specific Guidelines
+
+For detailed implementation rules and patterns specific to each programming language, please refer to:
+
+- [Go Backend Guidelines](./backend-go.md)
+- [TypeScript Backend Guidelines](./backend-typescript.md)
+
 ---
 
 _Created: 2026-01-02_

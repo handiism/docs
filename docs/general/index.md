@@ -7,3 +7,5 @@ Welcome to the general technical documentation section. This area contains docum
 - [Guidelines](./guidelines.md)
 - [API Guidelines](./api-guidelines.md)
 - [Backend Guidelines](./backend-guidelines.md)
+  - [Go Guidelines](./backend-go.md)
+  - [TypeScript Guidelines](./backend-typescript.md)
