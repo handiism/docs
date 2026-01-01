@@ -85,6 +85,18 @@ const config: Config = {
             // Add more projects here as they are created
           ],
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'generalSidebar',
+          position: 'left',
+          label: 'General',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'incidentsSidebar',
+          position: 'left',
+          label: 'Incidents',
+        },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/your-org/your-repo',
@@ -100,8 +112,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Introduction',
-              to: '/docs/intro',
+              label: 'General Docs',
+              to: '/docs/general/',
             },
             {
               label: 'Contributing Guide',
