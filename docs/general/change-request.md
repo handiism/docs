@@ -43,10 +43,10 @@ The `index.md` file in the `change-requests` folder serves as the central log. I
 
 **Format:**
 
-| ID                                  | Title              | Status         | Author       | Date       |
-| ----------------------------------- | ------------------ | -------------- | ------------ | ---------- |
-| [CR-001](./cr-001-add-google-login) | Add Google Login   | ✅ Implemented | @handiism    | 2024-01-02 |
-| [CR-002](./cr-002-update-schema)    | Update User Schema | 🟡 Review      | @anotheruser | 2024-01-03 |
+| ID     | Title              | Status         | Author       | Date       |
+| ------ | ------------------ | -------------- | ------------ | ---------- |
+| CR-001 | Add Google Login   | ✅ Implemented | @handiism    | 2024-01-02 |
+| CR-002 | Update User Schema | 🟡 Review      | @anotheruser | 2024-01-03 |
 
 **Status Legend:**
 
