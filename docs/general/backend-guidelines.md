@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # General Backend Guidelines Standard
 
 This document outlines the general technical guidelines and architectural standards for backend services.

@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # General API Guidelines Template
 
 This document serves as a general template and set of guidelines for all APIs developed at Techave. Project-specific guidelines should build upon these standards.

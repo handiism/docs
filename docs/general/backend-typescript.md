@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # TypeScript Backend Guidelines
 
 These guidelines are specific to TypeScript (Node.js) backend services at Techave.

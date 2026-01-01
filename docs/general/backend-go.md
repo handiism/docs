@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Go Backend Guidelines
 
 These guidelines are specific to Go (Golang) backend services at Techave.
