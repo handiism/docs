@@ -1,0 +1,106 @@
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API as Fastify API
+    participant Auth as Auth/RBAC
+    participant Domain as Domain Layer
+    participant DB as Database
+    participant Storage as File Storage
+    participant EventBus as Event Dispatcher
+    participant WS as WebSocket Manager
+
+    Note over User,WS: Poll Creation with Media Upload
+
+    User->>Frontend: Create poll with media
+    Frontend->>Storage: Upload media file
+    Storage-->>Frontend: Media file ID
+    Frontend->>API: POST /polls (with media_id)
+    API->>Auth: Check permissions
+    Auth-->>API: Permission granted
+    API->>Domain: Create poll use case
+    Domain->>DB: Create poll record
+    Domain->>DB: Create poll options with media
+    DB-->>Domain: Records created
+    Domain->>EventBus: Emit PollCreated event
+    EventBus->>WS: Broadcast to session
+    WS-->>Domain: Broadcast complete
+    Domain-->>API: Poll created
+    API-->>Frontend: 201 Created + poll data
+    Frontend-->>User: Poll created successfully
+
+    Note over User,WS: Participant Voting
+
+    User->>Frontend: Vote on option
+    Frontend->>API: POST /polls/:id/vote
+    API->>Auth: Check session & permissions
+    Auth-->>API: Valid participant
+    API->>Domain: Vote use case
+    Domain->>DB: Check existing vote
+    Domain->>DB: Create vote record
+    Domain->>DB: Update poll statistics
+    DB-->>Domain: Vote recorded
+    Domain->>EventBus: Emit PollVoted event
+    EventBus->>WS: Broadcast real-time update
+    WS-->>Domain: Update sent
+    Domain-->>API: Vote recorded
+    API-->>Frontend: 200 OK
+    Frontend-->>User: Vote confirmed
+
+    Note over User,WS: Counter Increment
+
+    User->>Frontend: Increment counter
+    Frontend->>API: POST /sessions/:id/counter/increment
+    API->>Auth: Check session & permissions
+    Auth-->>API: Valid participant
+    API->>Domain: Increment counter use case
+    Domain->>DB: Update counter value
+    DB-->>Domain: Counter updated
+    Domain->>EventBus: Emit CounterUpdated event
+    EventBus->>WS: Broadcast new count
+    WS-->>Domain: Update sent
+    Domain-->>API: Counter incremented
+    API-->>Frontend: 200 OK
+    Frontend-->>User: Counter updated
+
+    Note over User,WS: Real-time Update Reception
+
+    WS->>Frontend: SSE / WS event: poll.voted
+    Frontend->>Frontend: Update poll results UI
+    WS->>Frontend: SSE / WS event: counter.updated
+    Frontend->>Frontend: Update counter UI
+    Frontend-->>User: UI updates instantly
+
+    Note over User,WS: Session Material Sharing
+
+    User->>Frontend: Share session material
+    Frontend->>Storage: Upload material file
+    Storage-->>Frontend: Media file ID
+    Frontend->>API: POST /sessions/:id/materials
+    API->>Auth: Check admin/moderator permissions
+    Auth-->>API: Permission granted
+    API->>Domain: Share material use case
+    Domain->>DB: Create media file record
+    Domain->>DB: Link to session
+    DB-->>Domain: Material shared
+    Domain->>EventBus: Emit MaterialShared event
+    EventBus->>WS: Broadcast to session
+    WS-->>Domain: Broadcast complete
+    Domain-->>API: Material shared
+    API-->>Frontend: 201 Created
+    Frontend-->>User: Material shared successfully
+
+    Note over User,WS: Session Join with WebSocket
+
+    User->>Frontend: Join session
+    Frontend->>API: GET /sessions/:id
+    API->>Auth: Check access
+    Auth-->>API: Access granted
+    API->>Domain: Get session state use case
+    Domain->>DB: Fetch session data
+    Domain->>DB: Fetch polls, counter, materials
+    DB-->>Domain: Session data loaded
+    Domain-->>API: Session state
+    API-->>Frontend: Session data
+    Frontend->>WS: WebSocket connect
+    WS-->>Frontend: Connected
+    Frontend-->>User: Session joined, UI rendered

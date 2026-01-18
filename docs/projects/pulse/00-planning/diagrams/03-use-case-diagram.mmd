@@ -1,0 +1,56 @@
+flowchart TD
+    subgraph Actors ["Actors"]
+        Admin((Admin))
+        Moderator((Moderator))
+        Participant((Participant))
+        Viewer((Viewer))
+    end
+    
+    subgraph System ["Pulse System"]
+        CreateSession[Create Session]
+        DeleteSession[Delete Session]
+        ManageUsers[Manage Users]
+        ManageRoles[Manage Roles]
+        CreatePoll[Create Poll]
+        DeletePoll[Delete Poll]
+        ManagePoll[Manage Poll]
+        VotePoll[Vote on Poll]
+        IncrementCounter[Increment Counter]
+        UploadMedia[Upload Media]
+        ShareMaterial[Share Material]
+        ViewPolls[View Polls with Media]
+        ViewResults[View Real-time Results]
+        JoinSession[Join Session]
+        JoinViewer[Join as Viewer]
+        DownloadMaterial[Download Material]
+        ObserveUpdates[Observe Real-time Updates]
+    end
+    
+    Admin --> CreateSession
+    Admin --> DeleteSession
+    Admin --> ManageUsers
+    Admin --> ManageRoles
+    Admin --> CreatePoll
+    Admin --> DeletePoll
+    Admin --> UploadMedia
+    Admin --> ShareMaterial
+    Admin --> ViewResults
+    
+    Moderator --> CreatePoll
+    Moderator --> ManagePoll
+    Moderator --> UploadMedia
+    Moderator --> ShareMaterial
+    Moderator --> ViewResults
+    
+    Participant --> JoinSession
+    Participant --> VotePoll
+    Participant --> IncrementCounter
+    Participant --> ViewPolls
+    Participant --> ViewResults
+    Participant --> DownloadMaterial
+    
+    Viewer --> JoinViewer
+    Viewer --> ViewResults
+    Viewer --> ViewPolls
+    Viewer --> DownloadMaterial
+    Viewer --> ObserveUpdates

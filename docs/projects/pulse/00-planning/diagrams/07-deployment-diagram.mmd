@@ -1,0 +1,85 @@
+flowchart TB
+    subgraph Clients ["Client Layer"]
+        Browser[Web Browser]
+        Mobile[Mobile App]
+    end
+    
+    subgraph CDN ["Content Delivery Network"]
+        CDNNode[CDN Node]
+    end
+    
+    subgraph LB ["Load Balancer"]
+        LoadBalancer[Load Balancer]
+    end
+    
+    subgraph WebServerCluster ["Web Server Cluster"]
+        WebServer1[Next.js App 1]
+        WebServer2[Next.js App 2]
+    end
+    
+    subgraph APIServerCluster ["API Server Cluster"]
+        APIServer1[Fastify API 1]
+        APIServer2[Fastify API 2]
+        APIServer3[Fastify API 3]
+    end
+    
+    subgraph DatabaseCluster ["Database Cluster"]
+        PrimaryDB[(Primary Database)]
+        ReplicaDB1[(Read Replica 1)]
+        ReplicaDB2[(Read Replica 2)]
+    end
+    
+    subgraph CacheLayer ["Cache Layer"]
+        Redis[(Redis Cache)]
+    end
+    
+    subgraph Storage ["File Storage"]
+        S3Storage[(S3 / Object Storage)]
+    end
+    
+    subgraph Monitoring ["Monitoring & Logging"]
+        Prometheus[Prometheus]
+        Grafana[Grafana]
+        ELK[ELK Stack]
+    end
+    
+    Browser -->|HTTPS| CDNNode
+    Mobile -->|HTTPS| CDNNode
+    CDNNode -->|HTTPS| LoadBalancer
+    
+    LoadBalancer -->|HTTP/WS/SSE| WebServer1
+    LoadBalancer -->|HTTP/WS/SSE| WebServer2
+    
+    WebServer1 -->|HTTP/GraphQL| APIServer1
+    WebServer2 -->|HTTP/GraphQL| APIServer2
+    
+    APIServer1 -->|Read| PrimaryDB
+    APIServer2 -->|Read| ReplicaDB1
+    APIServer3 -->|Read| ReplicaDB2
+    
+    APIServer1 -->|Write| PrimaryDB
+    APIServer2 -->|Write| PrimaryDB
+    APIServer3 -->|Write| PrimaryDB
+    
+    PrimaryDB -->|Replication| ReplicaDB1
+    PrimaryDB -->|Replication| ReplicaDB2
+    
+    APIServer1 -->|Cache Read/Write| Redis
+    APIServer2 -->|Cache Read/Write| Redis
+    APIServer3 -->|Cache Read/Write| Redis
+    
+    WebServer1 -->|Upload/Download| S3Storage
+    APIServer1 -->|Upload/Download| S3Storage
+    
+    APIServer1 -->|Metrics| Prometheus
+    APIServer2 -->|Metrics| Prometheus
+    APIServer3 -->|Metrics| Prometheus
+    WebServer1 -->|Metrics| Prometheus
+    WebServer2 -->|Metrics| Prometheus
+    
+    Prometheus -->|Data| Grafana
+    APIServer1 -->|Logs| ELK
+    APIServer2 -->|Logs| ELK
+    APIServer3 -->|Logs| ELK
+    WebServer1 -->|Logs| ELK
+    WebServer2 -->|Logs| ELK

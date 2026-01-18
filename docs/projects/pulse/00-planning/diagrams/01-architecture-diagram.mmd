@@ -1,0 +1,82 @@
+flowchart TB
+    subgraph ClientLayer ["Client Layer"]
+        WebBrowser((Web Browser))
+        MobileApp((Mobile App))
+    end
+    
+    subgraph Monorepo ["Monorepo Structure"]
+        subgraph Apps ["Applications"]
+            NextJSWeb[Next.js Web App]
+            FastifyAPI[Fastify API Backend]
+        end
+        
+        subgraph Packages ["Shared Packages"]
+            Domain[Domain Layer]
+            Auth[Auth / RBAC / ACL]
+            Contracts[Contracts Package]
+            DB[DB Layer]
+            UI[UI Components]
+        end
+    end
+    
+    subgraph BackendArchitecture ["Hexagonal Architecture"]
+        subgraph Adapters ["Adapter Layer"]
+            RESTRoutes[REST Routes]
+            WSHandlers[WebSocket Handlers]
+            GraphQLServer[GraphQL Server]
+            SSEEndpoints[SSE Endpoints]
+        end
+        
+        subgraph Application ["Application Layer"]
+            UseCases[Use Cases]
+            Authorization[Authorization Service]
+            EventDispatcher[Event Dispatcher]
+        end
+        
+        subgraph Domain ["Domain Layer"]
+            Entities[Entities]
+            Repositories[Repositories]
+            DomainServices[Domain Services]
+        end
+        
+        subgraph Infrastructure ["Infrastructure Layer"]
+            PrismaClient[Prisma Client]
+            KyselyInstance[Kysely Instance]
+            FileStorage[File Storage]
+            EventStore[Event Store]
+        end
+    end
+    
+    subgraph DataLayer ["Data Layer"]
+        Database[(Database)]
+        MediaStorage[(Media Storage)]
+    end
+    
+    WebBrowser -->|HTTP/HTTPS| NextJSWeb
+    MobileApp -->|HTTP/HTTPS| NextJSWeb
+    
+    NextJSWeb -->|OpenAPI Client| FastifyAPI
+    NextJSWeb -.->|WebSocket| FastifyAPI
+    NextJSWeb -.->|SSE| FastifyAPI
+    NextJSWeb -.->|GraphQL| FastifyAPI
+    
+    FastifyAPI --> Adapters
+    Adapters --> Application
+    Application --> Domain
+    Domain --> Infrastructure
+    
+    Infrastructure --> Database
+    Infrastructure --> MediaStorage
+    
+    Contracts -->|OpenAPI Spec| RESTRoutes
+    Contracts -.->|AsyncAPI Spec| WSHandlers
+    Contracts -.->|AsyncAPI Spec| SSEEndpoints
+    Contracts -.->|GraphQL Schema| GraphQLServer
+    
+    Auth --> Authorization
+    DB --> PrismaClient
+    DB --> KyselyInstance
+    
+    FastifyAPI -.->|Generated Types| Domain
+    Domain -->|Domain Events| EventDispatcher
+    EventDispatcher -.->|Broadcast| Adapters

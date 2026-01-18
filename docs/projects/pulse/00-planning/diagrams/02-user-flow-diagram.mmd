@@ -1,0 +1,56 @@
+flowchart TD
+    Start([Start]) --> CheckRole{User Role?}
+    
+    CheckRole -->|Admin/Moderator| AdminFlow
+    CheckRole -->|Participant| ParticipantFlow
+    CheckRole -->|Viewer| ViewerFlow
+    
+    subgraph AdminSubgraph ["Admin/Moderator Flow"]
+        AdminFlow[Create Session]
+        CreatePoll[Create Poll]
+        UploadMedia[Upload Media]
+        ShareMaterial[Share Material]
+        ManageSession[Manage Session]
+        
+        AdminFlow --> CreatePoll
+        CreatePoll --> UploadMedia
+        CreatePoll --> PollOption{Add Media?}
+        PollOption -->|Yes| UploadMedia
+        PollOption -->|No| ShareMaterial
+        ShareMaterial --> ManageSession
+        ManageSession --> RealTimeUpdates[Real-time Updates]
+    end
+    
+    subgraph ParticipantSubgraph ["Participant Flow"]
+        ParticipantFlow[Join Session]
+        ViewPoll[View Poll with Media]
+        Vote[Vote on Poll]
+        IncrementCounter[Increment Counter]
+        ViewResults[View Real-time Results]
+        DownloadMaterial[Download Shared Material]
+        
+        ParticipantFlow --> ViewPoll
+        ViewPoll --> Vote
+        ViewPoll --> ViewResults
+        ParticipantFlow --> IncrementCounter
+        ParticipantFlow --> DownloadMaterial
+    end
+    
+    subgraph ViewerSubgraph ["Viewer Flow"]
+        ViewerFlow[Join Session as Viewer]
+        ObservePoll[Observe Poll Results]
+        ObserveCounter[Observe Counter]
+        ViewMaterial[View Shared Material]
+        WatchUpdates[Watch Real-time Updates]
+        
+        ViewerFlow --> ObservePoll
+        ViewerFlow --> ObserveCounter
+        ViewerFlow --> ViewMaterial
+        ObservePoll --> WatchUpdates
+        ObserveCounter --> WatchUpdates
+    end
+    
+    RealTimeUpdates --> End([End])
+    ViewResults --> End
+    DownloadMaterial --> End
+    WatchUpdates --> End

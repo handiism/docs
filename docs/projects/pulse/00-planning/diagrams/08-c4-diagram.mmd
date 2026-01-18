@@ -1,0 +1,34 @@
+flowchart TB
+    subgraph Users ["People"]
+        Admin((Admin))
+        Moderator((Moderator))
+        Participant((Participant))
+        Viewer((Viewer))
+    end
+    
+    subgraph ExternalSystems ["External Systems"]
+        EmailService((Email Service))
+        CDN((CDN))
+    end
+    
+    subgraph PulseSystem ["Pulse System"]
+        System[("Pulse
+        Real-time Interaction Platform")]
+    end
+    
+    Admin -->|Creates & manages sessions| System
+    Admin -->|Configures system| System
+    
+    Moderator -->|Creates polls| System
+    Moderator -->|Uploads media| System
+    Moderator -->|Manages content| System
+    
+    Participant -->|Joins sessions| System
+    Participant -->|Votes| System
+    Participant -->|Interacts| System
+    
+    Viewer -->|Observes sessions| System
+    Viewer -->|Views results| System
+    
+    System -->|Sends notifications| EmailService
+    System -->|Stores media| CDN

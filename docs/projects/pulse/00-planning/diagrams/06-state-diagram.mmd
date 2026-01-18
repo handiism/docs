@@ -1,0 +1,36 @@
+stateDiagram-v2
+    [*] --> Draft: Create
+    Draft --> Active: Start Session
+    Active --> Paused: Pause
+    Paused --> Active: Resume
+    Active --> Ended: End Session
+    Ended --> [*]
+    
+    note right of Draft
+        Session in draft mode
+        Admin/moderator can:
+        - Create polls
+        - Upload media
+        - Configure settings
+    end note
+    
+    note right of Active
+        Session is live
+        Participants can:
+        - Join session
+        - Vote on polls
+        - Increment counter
+        - View materials
+    end note
+    
+    note right of Paused
+        Session temporarily paused
+        No new votes accepted
+        Existing data preserved
+    end note
+    
+    note right of Ended
+        Session completed
+        Read-only access
+        Results available
+    end note

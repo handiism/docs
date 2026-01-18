@@ -1,0 +1,101 @@
+erDiagram
+    session {
+        uuid id PK
+        string name
+        string description
+        enum status
+        timestamp created_at
+        timestamp updated_at
+        timestamp ended_at
+    }
+
+    session_user {
+        uuid id PK
+        uuid session_id FK
+        uuid user_id FK
+        uuid role_id FK
+        timestamp joined_at
+        timestamp left_at
+    }
+
+    counter {
+        uuid id PK
+        uuid session_id FK
+        integer count
+        timestamp updated_at
+    }
+
+    poll {
+        uuid id PK
+        uuid session_id FK
+        uuid created_by FK
+        string question
+        enum status
+        timestamp created_at
+        timestamp updated_at
+        timestamp closed_at
+    }
+
+    poll_option {
+        uuid id PK
+        uuid poll_id FK
+        uuid media_file_id FK
+        string label
+        integer order
+        timestamp created_at
+    }
+
+    poll_vote {
+        uuid id PK
+        uuid poll_option_id FK
+        uuid session_user_id FK
+        timestamp voted_at
+    }
+
+    media_file {
+        uuid id PK
+        string filename
+        string mime_type
+        integer size
+        string storage_path
+        enum media_type
+        timestamp uploaded_at
+        uuid uploaded_by FK
+    }
+
+    role {
+        uuid id PK
+        string name
+        string description
+        timestamp created_at
+    }
+
+    permission {
+        uuid id PK
+        string name
+        string resource
+        string action
+        string description
+    }
+
+    role_permission {
+        uuid id PK
+        uuid role_id FK
+        uuid permission_id FK
+    }
+
+    session ||--o{ session_user : has
+    session ||--|| counter : has
+    session ||--o{ poll : contains
+    session ||--o{ media_file : stores
+    poll ||--o{ poll_option : contains
+    poll_option ||--o{ poll_vote : receives
+    poll_option o{--|| media_file : displays
+    session_user ||--|| role : has
+    role ||--o{ session_user : assigns
+    role ||--o{ role_permission : grants
+    permission ||--o{ role_permission : defines
+    poll }|..|| session_user : created_by
+    media_file }|..|| session_user : uploaded_by
+    session_user ||--o{ poll_vote : casts
+    poll_vote ||--|| poll_option : selects
